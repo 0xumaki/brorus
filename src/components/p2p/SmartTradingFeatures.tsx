@@ -21,6 +21,17 @@ import {
   RotateCcw
 } from "lucide-react";
 import { useLanguage } from "@/contexts/language";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+  DialogClose,
+  DialogTrigger
+} from "@/components/ui/dialog";
+import { useToast } from "@/hooks/use-toast";
 
 interface TradingSignal {
   id: string;
@@ -53,6 +64,12 @@ const SmartTradingFeatures: React.FC = () => {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [marketTrend, setMarketTrend] = useState<'bullish' | 'bearish'>('bullish');
   const [confidence, setConfidence] = useState(85);
+  const [advancedOpen, setAdvancedOpen] = useState(false);
+  const [stopLoss, setStopLoss] = useState(2);
+  const [takeProfit, setTakeProfit] = useState(5);
+  const [trailingStop, setTrailingStop] = useState(1);
+  const [deals, setDeals] = useState<any[]>([]);
+  const { toast } = useToast();
 
   // Simulate market analysis
   const analyzeMarket = async () => {
@@ -84,7 +101,7 @@ const SmartTradingFeatures: React.FC = () => {
         reason: 'Strong support level reached, RSI oversold',
         timestamp: new Date(),
         crypto: 'USDT',
-        fiat: 'MMK'
+        fiat: 'SDG'
       },
       {
         id: '2',
@@ -94,7 +111,7 @@ const SmartTradingFeatures: React.FC = () => {
         reason: 'Resistance level approaching, take profits',
         timestamp: new Date(Date.now() - 300000),
         crypto: 'USDT',
-        fiat: 'MMK'
+        fiat: 'SDG'
       },
       {
         id: '3',
@@ -104,7 +121,7 @@ const SmartTradingFeatures: React.FC = () => {
         reason: 'Market consolidation, wait for breakout',
         timestamp: new Date(Date.now() - 600000),
         crypto: 'USDT',
-        fiat: 'MMK'
+        fiat: 'SGB'
       }
     ];
     setSignals(newSignals);
@@ -139,6 +156,45 @@ const SmartTradingFeatures: React.FC = () => {
     }
   };
 
+  const handleSaveAdvanced = () => {
+    setAdvancedOpen(false);
+    // Generate mock deals
+    setDeals([
+      {
+        id: 1,
+        asset: 'USDT/EUR',
+        type: 'Buy',
+        amount: 1000,
+        price: 0.998,
+        status: 'executed',
+        time: new Date().toLocaleTimeString(),
+      },
+      {
+        id: 2,
+        asset: 'USDC/CHF',
+        type: 'Sell',
+        amount: 500,
+        price: 1.002,
+        status: 'pending',
+        time: new Date(Date.now() - 60000).toLocaleTimeString(),
+      },
+      {
+        id: 3,
+        asset: 'EUR/USDT',
+        type: 'Buy',
+        amount: 2000,
+        price: 1.001,
+        status: 'executed',
+        time: new Date(Date.now() - 120000).toLocaleTimeString(),
+      }
+    ]);
+    toast({
+      title: "Advanced settings saved",
+      description: "Your advanced auto trading settings have been updated. New deals have been generated.",
+      variant: "default"
+    });
+  };
+
   return (
     <div className="space-y-6">
       {/* Auto Trading Control */}
@@ -149,7 +205,7 @@ const SmartTradingFeatures: React.FC = () => {
               <Zap className="h-5 w-5 text-white" />
             </div>
             <div>
-              <h3 className="font-semibold text-white">ElizaOS Auto Trading</h3>
+              <h3 className="font-semibold text-white text-left">ElizaOS Auto Trading</h3>
               <p className="text-sm text-gray-400">AI-powered autonomous trading</p>
             </div>
           </div>
@@ -169,10 +225,11 @@ const SmartTradingFeatures: React.FC = () => {
                   value={riskLevel}
                   onChange={(e) => setRiskLevel(e.target.value as 'low' | 'medium' | 'high')}
                   className="w-full bg-white/10 border border-white/20 rounded-md px-3 py-2 text-white"
+                  style={{ colorScheme: 'dark' }}
                 >
-                  <option value="low">Low Risk</option>
-                  <option value="medium">Medium Risk</option>
-                  <option value="high">High Risk</option>
+                  <option value="low" className="text-black bg-white">Low Risk</option>
+                  <option value="medium" className="text-black bg-white">Medium Risk</option>
+                  <option value="high" className="text-black bg-white">High Risk</option>
                 </select>
               </div>
               <div>
@@ -186,14 +243,65 @@ const SmartTradingFeatures: React.FC = () => {
                 />
               </div>
               <div className="flex items-end">
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  className="border-purple-500/50 text-purple-400 hover:bg-purple-500/20"
-                >
-                  <Settings className="h-4 w-4 mr-2" />
-                  Advanced
-                </Button>
+                <Dialog open={advancedOpen} onOpenChange={setAdvancedOpen}>
+                  <DialogTrigger asChild>
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      className="border-purple-500/50 text-purple-400 hover:bg-purple-500/20"
+                    >
+                      <Settings className="h-4 w-4 mr-2" />
+                      Advanced
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="bg-black/90 border-white/10 text-white">
+                    <DialogHeader>
+                      <DialogTitle>Advanced Auto Trading Settings</DialogTitle>
+                      <DialogDescription>Configure advanced risk management and automation options for ElizaOS Auto Trading.</DialogDescription>
+                    </DialogHeader>
+                    <div className="space-y-4 mt-2">
+                      <div>
+                        <label className="block text-sm mb-1">Stop Loss (%)</label>
+                        <input
+                          type="number"
+                          min={0}
+                          max={100}
+                          value={stopLoss}
+                          onChange={e => setStopLoss(Number(e.target.value))}
+                          className="w-full bg-white/10 border border-white/20 rounded-md px-3 py-2 text-white"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm mb-1">Take Profit (%)</label>
+                        <input
+                          type="number"
+                          min={0}
+                          max={100}
+                          value={takeProfit}
+                          onChange={e => setTakeProfit(Number(e.target.value))}
+                          className="w-full bg-white/10 border border-white/20 rounded-md px-3 py-2 text-white"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm mb-1">Trailing Stop (%)</label>
+                        <input
+                          type="number"
+                          min={0}
+                          max={100}
+                          value={trailingStop}
+                          onChange={e => setTrailingStop(Number(e.target.value))}
+                          className="w-full bg-white/10 border border-white/20 rounded-md px-3 py-2 text-white"
+                        />
+                      </div>
+                    </div>
+                    <DialogFooter>
+                      <Button onClick={handleSaveAdvanced} className="bg-crystal-primary text-white hover:bg-crystal-primary/90">Save</Button>
+                      <DialogClose asChild>
+                        <Button variant="outline" className="border-white/20 text-white">Cancel</Button>
+                      </DialogClose>
+                    </DialogFooter>
+                  </DialogContent>
+                </Dialog>
               </div>
             </div>
             
@@ -223,7 +331,7 @@ const SmartTradingFeatures: React.FC = () => {
               <BarChart3 className="h-5 w-5 text-white" />
             </div>
             <div>
-              <h3 className="font-semibold text-white">Market Analysis</h3>
+              <h3 className="font-semibold text-white text-left">Market Analysis</h3>
               <p className="text-sm text-gray-400">Real-time market insights</p>
             </div>
           </div>
@@ -309,7 +417,7 @@ const SmartTradingFeatures: React.FC = () => {
               <Target className="h-5 w-5 text-white" />
             </div>
             <div>
-              <h3 className="font-semibold text-white">Trading Signals</h3>
+              <h3 className="font-semibold text-white text-left">Trading Signals</h3>
               <p className="text-sm text-gray-400">AI-generated trading opportunities</p>
             </div>
           </div>
@@ -353,6 +461,27 @@ const SmartTradingFeatures: React.FC = () => {
           ))}
         </div>
       </Card>
+
+      {deals.length > 0 && (
+        <div className="mt-8">
+          <h4 className="text-lg font-semibold text-white mb-3 text-left">Recent Auto Trading Deals</h4>
+          <div className="space-y-3">
+            {deals.map(deal => (
+              <div key={deal.id} className="glass-card p-4 flex flex-col sm:flex-row sm:items-center justify-between border border-white/10 bg-white/10 rounded-lg shadow-md">
+                <div className="flex-1 flex flex-col sm:flex-row sm:items-center gap-2">
+                  <span className="font-semibold text-crystal-primary text-base sm:text-lg">{deal.asset}</span>
+                  <span className={`px-2 py-1 rounded text-xs font-semibold ${deal.type === 'Buy' ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'}`}>{deal.type}</span>
+                  <span className="text-white/80 text-sm">{deal.amount} @ {deal.price}</span>
+                </div>
+                <div className="flex items-center gap-3 mt-2 sm:mt-0">
+                  <span className={`text-xs font-semibold ${deal.status === 'executed' ? 'text-green-400' : 'text-yellow-400'}`}>{deal.status.charAt(0).toUpperCase() + deal.status.slice(1)}</span>
+                  <span className="text-xs text-gray-400">{deal.time}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

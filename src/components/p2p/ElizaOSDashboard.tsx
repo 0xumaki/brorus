@@ -22,12 +22,26 @@ import {
   Rocket
 } from "lucide-react";
 import { useElizaOS } from "./context/ElizaOSContext";
+import { useToast } from "@/hooks/use-toast";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+  DialogClose
+} from "@/components/ui/dialog";
 
 const ElizaOSDashboard: React.FC = () => {
   const { state, toggleAutoTrading, setRiskLevel, setMaxTradeAmount, analyzeMarket, generateSignals } = useElizaOS();
+  const { toast } = useToast();
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [marketData, setMarketData] = useState<any>(null);
   const [signals, setSignals] = useState<any[]>([]);
+  const [detailsOpen, setDetailsOpen] = useState(false);
+  const [selectedSignal, setSelectedSignal] = useState<any>(null);
+  const [executedSignals, setExecutedSignals] = useState<string[]>([]);
 
   useEffect(() => {
     // Initial load
@@ -335,19 +349,71 @@ const ElizaOSDashboard: React.FC = () => {
                 </div>
                 
                 <div className="flex gap-2">
-                  <Button size="sm" variant="outline" className="border-purple-500/50 text-purple-400 hover:bg-purple-500/20">
+                  <Button 
+                    size="sm" 
+                    variant="outline" 
+                    className={`border-purple-500/50 text-purple-400 hover:bg-purple-500/20 ${executedSignals.includes(signal.id) ? 'opacity-60 pointer-events-none' : ''}`}
+                    onClick={() => {
+                      setExecutedSignals(prev => [...prev, signal.id]);
+                      toast({
+                        title: 'Trade Executed',
+                        description: `Successfully executed ${signal.type.toUpperCase()} for ${signal.crypto}/${signal.fiat} at ${signal.price}.`,
+                        variant: 'default'
+                      });
+                    }}
+                    disabled={executedSignals.includes(signal.id)}
+                  >
                     <Rocket className="h-3 w-3 mr-1" />
-                    Execute
+                    {executedSignals.includes(signal.id) ? 'Executed' : 'Execute'}
                   </Button>
-                  <Button size="sm" variant="outline" className="border-gray-500/50 text-gray-400 hover:bg-gray-500/20">
+                  <Button 
+                    size="sm" 
+                    variant="outline" 
+                    className="border-gray-500/50 text-gray-400 hover:bg-gray-500/20"
+                    onClick={() => { setSelectedSignal(signal); setDetailsOpen(true); }}
+                  >
                     Details
                   </Button>
                 </div>
+                {executedSignals.includes(signal.id) && (
+                  <div className="mt-2 text-green-400 text-xs font-semibold flex items-center gap-1">
+                    <CheckCircle className="h-3 w-3" /> Trade executed
+                  </div>
+                )}
               </div>
             ))}
           </div>
         </Card>
       )}
+
+      {/* Signal Details Modal */}
+      <Dialog open={detailsOpen} onOpenChange={setDetailsOpen}>
+        <DialogContent className="bg-black/90 border-white/10 text-white">
+          <DialogHeader>
+            <DialogTitle>Signal Details</DialogTitle>
+            <DialogDescription>Full details of the selected trading signal.</DialogDescription>
+          </DialogHeader>
+          {selectedSignal && (
+            <div className="space-y-3 mt-2">
+              <div className="flex items-center gap-2">
+                <Badge className={getSignalColor(selectedSignal.type)}>{selectedSignal.type.toUpperCase()}</Badge>
+                <span className="font-semibold text-lg">{selectedSignal.price}</span>
+              </div>
+              <div className="text-gray-300">{selectedSignal.reason}</div>
+              <div className="flex items-center gap-4 text-sm">
+                <span>Confidence: <span className="text-white font-semibold">{selectedSignal.confidence}%</span></span>
+                <span>Pair: <span className="text-white font-semibold">{selectedSignal.crypto}/{selectedSignal.fiat}</span></span>
+                <span>Time: <span className="text-white font-semibold">{selectedSignal.timestamp.toLocaleTimeString()}</span></span>
+              </div>
+            </div>
+          )}
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button variant="outline" className="border-white/20 text-white">Close</Button>
+            </DialogClose>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

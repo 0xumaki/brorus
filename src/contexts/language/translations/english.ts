@@ -36,7 +36,7 @@ const englishTranslations: TranslationsObject = {
   "settings.notifications": "Notifications",
   "settings.language": "Language",
   "settings.help": "Help Center",
-  "settings.version": "Omni Wallet v1.0.0",
+  "settings.version": "BroRUs v1.0.0",
 
   // Languages
   "language.english": "English",
@@ -131,7 +131,7 @@ const englishTranslations: TranslationsObject = {
   "p2p.total": "Total",
   "p2p.place_order": "Place Order",
   "p2p.order_placed": "Order placed successfully",
-  "p2p.order_details": "{{action}} {{amount}} {{currency}} at {{price}} {{fiat}}",
+  "p2p.order_details": "{action} {amount} {currency} at {price} {fiat}",
   "p2p.trades": "{{count}} trades | {{rate}}%",
   
   // Added missing keys

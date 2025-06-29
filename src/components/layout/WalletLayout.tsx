@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Wallet, Send, LineChart, Settings, Users } from "lucide-react";
+import { Wallet, Send, LineChart, Settings, Users, Calculator } from "lucide-react";
 import { useLanguage } from "@/contexts/language";
 
 interface WalletLayoutProps {
@@ -17,6 +17,7 @@ const WalletLayout: React.FC<WalletLayoutProps> = ({ children }) => {
     { icon: Send, label: t("nav.transfer"), path: "/transfer" },
     { icon: Users, label: t("nav.p2p_trading", "P2P Trading"), path: "/p2p" },
     { icon: LineChart, label: t("nav.market"), path: "/market" },
+    { icon: Calculator, label: t("nav.tax", "Tax"), path: "/tax" },
     { icon: Settings, label: t("nav.settings"), path: "/settings" },
   ];
 

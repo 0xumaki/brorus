@@ -273,9 +273,9 @@ const ElizaOSTrading: React.FC<ElizaOSTradingProps> = ({
             <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center animate-pulse">
               <Bot className="h-4 w-4 text-white" />
             </div>
-            <div>
-              <h3 className="font-semibold text-gray-800">ElizaOS Trading</h3>
-              <p className="text-xs text-gray-500">AI-Powered Trade Execution</p>
+            <div className="text-left">
+              <h3 className="font-semibold text-gray-800 text-left">ElizaOS Trading</h3>
+              <p className="text-xs text-gray-500 text-left">AI-Powered Trade Execution</p>
             </div>
           </div>
           <div className="flex items-center gap-1">
@@ -406,7 +406,7 @@ const ElizaOSTrading: React.FC<ElizaOSTradingProps> = ({
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
                   placeholder="Ask ElizaOS to execute a trade..."
-                  className="flex-1 border-purple-200 focus:border-purple-500 focus:ring-purple-500/20 transition-all duration-200 bg-white/80 hover:bg-white"
+                  className="flex-1 border-purple-200 focus:border-purple-500 focus:ring-purple-500/20 transition-all duration-200 bg-white/80 hover:bg-white text-black placeholder-gray-500"
                 />
                 <Button
                   onClick={handleSendMessage}

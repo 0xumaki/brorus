@@ -1,4 +1,3 @@
-
 import React from "react";
 import { 
   Select, 
@@ -40,8 +39,8 @@ const P2PFilters: React.FC<P2PFiltersProps> = ({
   const { t } = useLanguage();
   const isMobile = useIsMobile();
 
-  const cryptoOptions = ["USDT", "USDC", "BTC", "ETH"];
-  const fiatOptions = ["MMK", "THB", "CNY"];
+  const cryptoOptions = ["All", "USDT", "USDC", "CHF", "AUD", "EUR", "CAD", "SGD", "HKD", "INR", "NZD", "MRP", "DEM", "MX", "ZAR", "THB"];
+  const fiatOptions = ["All", "CHF", "AUD", "EUR", "CAD", "SGD", "HKD", "INR", "NZD", "MRP", "DEM", "MX", "ZAR", "THB"];
 
   const togglePaymentMethod = (id: number) => {
     if (selectedPaymentMethods.includes(id)) {

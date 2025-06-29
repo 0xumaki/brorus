@@ -42,6 +42,7 @@ const LINK_TOKEN_ADDRESSES = {
 const DESTINATION_CHAINS = [
   { id: "sepolia", name: "Sepolia Testnet", chainSelector: "16015286601757825753" },
   { id: "mumbai", name: "Polygon Mumbai", chainSelector: "12532609583862916517" },
+  { id: "fuji", name: "Avalanche Fuji", chainSelector: "14767482510784806043" },
 ];
 
 // Helper functions
@@ -93,7 +94,11 @@ const executeCrossChainTransfer = async (web3: Web3, sourceChain: string, destin
   return "0xplaceholder_tx_hash";
 };
 
-const CrossChainTransferForm: React.FC = () => {
+interface CrossChainTransferFormProps {
+  className?: string;
+}
+
+const CrossChainTransferForm: React.FC<CrossChainTransferFormProps> = ({ className = "" }) => {
   const { t } = useLanguage();
   const { toast } = useToast();
   const { account } = useWallet();
@@ -265,7 +270,7 @@ const CrossChainTransferForm: React.FC = () => {
   };
 
   return (
-    <div className="glass-card p-5">
+    <div className={`glass-card p-5 ${className}`}>
       <form onSubmit={handleCrossChainTransfer}>
         <div className="space-y-4">
           <div className="text-left">

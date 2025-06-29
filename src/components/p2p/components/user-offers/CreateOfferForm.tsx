@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useLanguage } from "@/contexts/language";
 import { Button } from "@/components/ui/button";
@@ -9,6 +8,7 @@ import { useTrade } from "../../context/TradeContext";
 import { Checkbox } from "@/components/ui/checkbox";
 import { paymentMethods, TradeType } from "../../data/offerTypes";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { currencies } from "@/components/transfer/data/currencies";
 
 type CreateOfferProps = {
   onSuccess: () => void;
@@ -22,7 +22,7 @@ const CreateOfferForm: React.FC<CreateOfferProps> = ({ onSuccess }) => {
   const [formData, setFormData] = useState({
     type: "sell" as TradeType,
     price: "",
-    currency: "MMK",
+    currency: "SGD",
     cryptoCurrency: "USDT",
     available: "",
     min: "",
@@ -128,16 +128,16 @@ const CreateOfferForm: React.FC<CreateOfferProps> = ({ onSuccess }) => {
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="MMK">MMK</SelectItem>
-              <SelectItem value="THB">THB</SelectItem>
-              <SelectItem value="SGD">SGD</SelectItem>
+              {currencies.map((c) => (
+                <SelectItem key={c.symbol} value={c.symbol}>{c.symbol} - {c.name}</SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>
       </div>
 
       <div className="space-y-2">
-        <Label>{t("p2p.crypto_currency", "Crypto Currency")}</Label>
+        <Label>{t("p2p.select_currency", "Select Currency")}</Label>
         <Select
           value={formData.cryptoCurrency}
           onValueChange={(value) => handleSelectChange("cryptoCurrency", value)}
@@ -146,9 +146,9 @@ const CreateOfferForm: React.FC<CreateOfferProps> = ({ onSuccess }) => {
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="USDT">USDT</SelectItem>
-            <SelectItem value="USDC">USDC</SelectItem>
-            <SelectItem value="BTC">BTC</SelectItem>
+            {currencies.map((c) => (
+              <SelectItem key={c.symbol} value={c.symbol}>{c.symbol} - {c.name}</SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>

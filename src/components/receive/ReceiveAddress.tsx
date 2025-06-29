@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { QrCode, Copy, Check, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -44,7 +43,13 @@ const ReceiveAddress: React.FC = () => {
       <div className="glass-card p-6 flex flex-col items-center">
         <div className="glass p-2 mb-6 rounded-2xl">
           <div className="bg-white p-3 rounded-xl">
-            <QrCode size={180} className="text-black" />
+            <img 
+              src="/custom_qr.png" 
+              alt="Wallet QR Code" 
+              width={180} 
+              height={180} 
+              className="rounded-xl object-cover" 
+            />
           </div>
         </div>
         

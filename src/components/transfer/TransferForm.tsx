@@ -11,6 +11,8 @@ import { currencies } from "./data/currencies";
 import CrossChainTransferForm from "./CrossChainTransferForm";
 import Web3 from "web3";
 import { useWallet } from "@/contexts/WalletContext";
+import { useNotifications } from '@/contexts/NotificationContext';
+import { addTransactionNotification, checkSuspiciousActivity } from '@/lib/notificationUtils';
 
 // Ensure we're using consistent types
 interface WalletAddress {
@@ -71,6 +73,7 @@ const TransferForm: React.FC = () => {
   const { account } = useWallet();
   const [tokenBalance, setTokenBalance] = useState<number | null>(null);
   const [balanceLoading, setBalanceLoading] = useState(false);
+  const { addNotification } = useNotifications();
 
   const selectedCurrencyData = currencies.find(currency => currency.symbol === selectedCurrency);
   const isCbdc = selectedCurrencyData?.type === "cbdc";
@@ -201,11 +204,48 @@ const TransferForm: React.FC = () => {
         title: t("transfer.success"),
         description: `${amount} ${selectedCurrency} sent!`,
       });
+      
+      // --- Notification: Outgoing Transaction ---
+      addTransactionNotification(addNotification, {
+        type: 'outgoing',
+        amount: amount,
+        currency: selectedCurrency,
+        txHash: tx.transactionHash,
+        from,
+        to: address,
+        network: 'sepolia', // or detect current network
+      });
+      
+      // --- Security Check ---
+      checkSuspiciousActivity(addNotification, {
+        amount: Number(amount),
+        currency: selectedCurrency,
+        to: address,
+        // Optionally add gasPrice if available
+      });
+      
       setTimeout(() => {
         navigate("/");
       }, 2000);
     } catch (err: any) {
       setError(err.message || "Transaction failed");
+      // --- Notification: Failed Transaction ---
+      addTransactionNotification(addNotification, {
+        type: 'failed',
+        amount: amount,
+        currency: selectedCurrency,
+        txHash: '',
+        from: account || '',
+        to: address,
+        network: 'sepolia',
+      });
+      
+      // --- Security Check ---
+      checkSuspiciousActivity(addNotification, {
+        amount: Number(amount),
+        currency: selectedCurrency,
+        to: address,
+      });
     } finally {
       setLoading(false);
     }
@@ -227,7 +267,7 @@ const TransferForm: React.FC = () => {
           {t("transfer.titleGeneric")}
         </h1>
       </div>
-      <div className="flex gap-2 mb-4">
+      <div className="flex gap-2 mb-6 justify-center">
         <Button variant={mode === 'same' ? 'default' : 'outline'} onClick={() => setMode('same')}>
           {t('transfer.sameChain', 'Same Chain')}
         </Button>
@@ -236,7 +276,7 @@ const TransferForm: React.FC = () => {
         </Button>
       </div>
       {mode === 'same' ? (
-        <div className="glass-card p-5">
+        <div className="glass-card p-5 max-w-md mx-auto">
           <form onSubmit={handleTransfer}>
             <div className="space-y-4">
               <CurrencySelector 
@@ -273,13 +313,16 @@ const TransferForm: React.FC = () => {
                   : t("transfer.send")}
                 <ArrowRight size={16} className="ml-2" />
               </Button>
+              
               {txHash && <div className="text-wallet-emerald text-xs mt-2">{t("transfer.txSent", "Transaction sent!")} {txHash}</div>}
               {error && <div className="text-red-500 text-xs mt-2">{error}</div>}
             </div>
           </form>
         </div>
       ) : (
-        <CrossChainTransferForm />
+        <div className="glass-card p-5 max-w-md mx-auto">
+          <CrossChainTransferForm />
+        </div>
       )}
     </div>
   );

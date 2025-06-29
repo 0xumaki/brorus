@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/language";
 import { useWallet } from "@/contexts/WalletContext";
 import { useToast } from "@/hooks/use-toast";
+import NotificationBell from "@/components/ui/notification-bell";
 import {
   Dialog,
   DialogContent,
@@ -55,8 +56,8 @@ const PageHeader: React.FC<PageHeaderProps> = ({ currentBalances = {} }) => {
   const [mockBalance, setMockBalance] = useState('0');
 
   const currencies = [
-    { symbol: 'USDT', name: 'Tether USD', icon: '💵' },
-    { symbol: 'USDC', name: 'USD Coin', icon: '🪙' },
+    { symbol: 'USDT', name: 'Tether USD', icon: '🇺🇸' },
+    { symbol: 'USDC', name: 'USD Coin', icon: '🇺🇸' },
     { symbol: 'CHF', name: 'Swiss Franc', icon: '🇨🇭' },
     { symbol: 'AUD', name: 'Australian Dollar', icon: '🇦🇺' }
   ];
@@ -939,10 +940,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({ currentBalances = {} }) => {
         </Dialog>
         
         {/* Notification Bell */}
-        <Button variant="ghost" size="icon" className="relative">
-          <Bell size={20} />
-          <span className="absolute top-1 right-1 w-2 h-2 bg-wallet-emerald rounded-full"></span>
-        </Button>
+        <NotificationBell />
       </div>
     </div>
   );

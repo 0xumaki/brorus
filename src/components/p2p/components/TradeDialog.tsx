@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Offer, TradeType } from "../data/offerTypes";
 import { useLanguage } from "@/contexts/language";
@@ -96,8 +95,14 @@ const TradeDialog: React.FC<TradeDialogProps> = ({
     toast({
       title: t("p2p.order_placed", "Order placed successfully"),
       description: t(
-        "p2p.order_details", 
-        `${actionType === "buy" ? "Buying" : "Selling"} ${amount} ${offer.cryptoCurrency} at ${formatNumberEnglish(offer.price)} ${offer.currency}`
+        "p2p.order_details",
+        {
+          action: actionType === "buy" ? t("p2p.buying", "Buying") : t("p2p.selling", "Selling"),
+          amount: formatNumberEnglish(amountNumber),
+          currency: offer.cryptoCurrency,
+          price: formatNumberEnglish(offer.price),
+          fiat: offer.currency
+        }
       ),
     });
     

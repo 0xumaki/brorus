@@ -95,7 +95,7 @@ export const ElizaOSProvider: React.FC<ElizaOSProviderProps> = ({ children }) =>
         reason: 'Strong support level reached, RSI oversold',
         timestamp: new Date(),
         crypto: 'USDT',
-        fiat: 'MMK'
+        fiat: 'SGD'
       },
       {
         id: '2',
@@ -105,7 +105,7 @@ export const ElizaOSProvider: React.FC<ElizaOSProviderProps> = ({ children }) =>
         reason: 'Resistance level approaching, take profits',
         timestamp: new Date(Date.now() - 300000),
         crypto: 'USDT',
-        fiat: 'MMK'
+        fiat: 'SGD'
       }
     ];
 

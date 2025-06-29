@@ -7,19 +7,20 @@ import { useLanguage } from "@/contexts/language";
 import { TradeType, mockOffers } from "./data/offerTypes";
 import { Card } from "@/components/ui/card";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { Bell, History, ListFilter, Bot, Sparkles } from "lucide-react";
+import { History, ListFilter, Bot, Sparkles } from "lucide-react";
 import { TradeProvider } from "./context/TradeContext";
 import { ElizaOSProvider } from "./context/ElizaOSContext";
 import UserOfferList from "./UserOfferList";
-import ElizaOSAssistant from "./ElizaOSAssistant";
+import ElizaOSChatbot from "./ElizaOSChatbot";
 import SmartTradingFeatures from "./SmartTradingFeatures";
+import NotificationBell from "@/components/ui/notification-bell";
 
 const P2PMarketplace = () => {
   const { t } = useLanguage();
   const isMobile = useIsMobile();
   const [tradeType, setTradeType] = useState<TradeType>("buy");
   const [selectedCrypto, setSelectedCrypto] = useState("USDT");
-  const [selectedFiat, setSelectedFiat] = useState("USD");
+  const [selectedFiat, setSelectedFiat] = useState("EUR");
   const [selectedPaymentMethods, setSelectedPaymentMethods] = useState<number[]>([]);
   const [view, setView] = useState<"market" | "history" | "myoffers" | "elizaos">("market");
 
@@ -81,13 +82,7 @@ const P2PMarketplace = () => {
           </Tabs>
           
           <div className={`flex items-center ${isMobile ? 'absolute top-1.5 right-2' : ''}`}>
-            <button 
-              className={`${isMobile ? 'p-1.5' : 'p-2'} rounded-full hover:bg-white/10 text-gray-400 hover:text-white transition-colors relative`}
-              aria-label={t("p2p.notifications", "Notifications")}
-            >
-              <Bell className={`${isMobile ? 'h-4 w-4' : 'h-5 w-5'}`} />
-              <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-            </button>
+            <NotificationBell />
           </div>
         </div>
         
@@ -96,19 +91,31 @@ const P2PMarketplace = () => {
             {view === "market" ? (
               <>
                 <Tabs 
-                  defaultValue="buy" 
+                  defaultValue={tradeType} 
+                  value={tradeType}
                   onValueChange={(value) => setTradeType(value as TradeType)}
                   className="w-full"
                 >
-                  <TabsList className="w-full bg-white/5 mb-6 p-1 rounded-md border border-white/10">
-                    <TabsTrigger value="buy" className="flex-1 rounded-md data-[state=active]:bg-crystal-primary/20 data-[state=active]:text-crystal-primary">
-                      {t("p2p.buy_crypto", "Buy Crypto")}
+                  <TabsList className="w-full bg-white/5 mb-6 p-1 rounded-md border border-white/10 flex gap-2">
+                    <TabsTrigger 
+                      value="buy" 
+                      className="flex-1 rounded-md font-bold text-base transition-all duration-200 data-[state=active]:bg-gradient-to-r data-[state=active]:from-green-500/80 data-[state=active]:to-green-400/80 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:border-2 data-[state=active]:border-green-400/60 border border-transparent"
+                    >
+                      <span className="inline-flex items-center gap-2">
+                        <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" /></svg>
+                        {t("p2p.buy_crypto", "Buy Crypto")}
+                      </span>
                     </TabsTrigger>
-                    <TabsTrigger value="sell" className="flex-1 rounded-md data-[state=active]:bg-crystal-primary/20 data-[state=active]:text-crystal-primary">
-                      {t("p2p.sell_crypto", "Sell Crypto")}
+                    <TabsTrigger 
+                      value="sell" 
+                      className="flex-1 rounded-md font-bold text-base transition-all duration-200 data-[state=active]:bg-gradient-to-r data-[state=active]:from-red-500/80 data-[state=active]:to-pink-400/80 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:border-2 data-[state=active]:border-red-400/60 border border-transparent"
+                    >
+                      <span className="inline-flex items-center gap-2">
+                        <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 20V4m8 8H4" /></svg>
+                        {t("p2p.sell_crypto", "Sell Crypto")}
+                      </span>
                     </TabsTrigger>
                   </TabsList>
-                  
                   <P2PFilters 
                     selectedCrypto={selectedCrypto} 
                     setSelectedCrypto={setSelectedCrypto}
@@ -117,13 +124,11 @@ const P2PMarketplace = () => {
                     selectedPaymentMethods={selectedPaymentMethods}
                     setSelectedPaymentMethods={setSelectedPaymentMethods}
                   />
-                  
                   <TabsContent value="buy" className="mt-4">
-                    <OfferList offers={filteredOffers} tradeType="buy" />
+                    <OfferList offers={mockOffers.filter(offer => offer.type === 'sell' && (selectedCrypto === 'All' || offer.cryptoCurrency === selectedCrypto) && (selectedFiat === 'All' || offer.currency === selectedFiat))} tradeType="buy" />
                   </TabsContent>
-                  
                   <TabsContent value="sell" className="mt-4">
-                    <OfferList offers={filteredOffers} tradeType="sell" />
+                    <OfferList offers={mockOffers.filter(offer => offer.type === 'buy' && (selectedCrypto === 'All' || offer.cryptoCurrency === selectedCrypto) && (selectedFiat === 'All' || offer.currency === selectedFiat))} tradeType="sell" />
                   </TabsContent>
                 </Tabs>
               </>
@@ -138,7 +143,7 @@ const P2PMarketplace = () => {
         </div>
 
         {/* ElizaOS Assistant - Always available */}
-        <ElizaOSAssistant 
+        <ElizaOSChatbot 
           tradeType={tradeType}
           selectedCrypto={selectedCrypto}
           selectedFiat={selectedFiat}

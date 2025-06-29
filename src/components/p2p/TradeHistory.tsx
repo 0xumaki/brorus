@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useLanguage } from "@/contexts/language";
 import { useTrade, Trade, TradeStatus } from "./context/TradeContext";
@@ -24,6 +23,8 @@ const TradeHistory: React.FC = () => {
   const isMobile = useIsMobile();
   
   const filteredTrades = trades.filter(trade => {
+    // Remove MMK offers
+    if (trade.offer.currency === "MMK") return false;
     if (filter === "active") {
       return trade.status === "pending" || trade.status === "paid";
     } else if (filter === "completed") {
