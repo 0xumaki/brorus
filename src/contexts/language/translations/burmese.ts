@@ -1,0 +1,200 @@
+import { TranslationsObject } from "../types";
+
+const burmeseTranslations: TranslationsObject = {
+  // Global
+  "app.name": "ခရစ္စတယ် ပိုက်ဆံအိတ်",
+  "app.tagline": "သင့်ရဲ့ Stablecoin ဘဏ္ဍာတိုက်",
+  "total.balance": "စုစုပေါင်း လက်ကျန်",
+
+  // Navigation
+  "nav.wallet": "ပိုက်ဆံအိတ်",
+  "nav.transfer": "လွှဲပြောင်းမှု",
+  "nav.p2p_trading": "P2P ရောင်းဝယ်ရေး",
+  "nav.market": "ဈေးကွက်",
+  "nav.settings": "ဆက်တင်များ",
+
+  // Tabs
+  "tabs.coins": "ဒဂ္ဂါးများ",
+  "tabs.nfts": "NFTများ",
+  "tabs.history": "မှတ်တမ်း",
+
+  // NFTs
+  "nfts.none": "NFTများ မတွေ့ရှိပါ",
+  "nfts.appear": "သင့်ရဲ့ NFT စုဆောင်းမှုများ ဒီမှာပြပါမည်",
+
+  // Settings categories
+  "settings.title": "ဆက်တင်များ",
+  "settings.manage": "သင့်ပိုက်ဆံအိတ် ဦးစားပေးမှုများကို စီမံပါ",
+  "settings.account": "အကောင့်",
+  "settings.preferences": "ဦးစားပေးမှုများ",
+  "settings.support": "အကူအညီ",
+
+  // Settings options
+  "settings.profile": "ပရိုဖိုင်",
+  "settings.security": "လုံခြုံရေး",
+  "settings.privacy": "ကိုယ်ရေးကိုယ်တာ",
+  "settings.notifications": "အသိပေးချက်များ",
+  "settings.language": "ဘာသာစကား",
+  "settings.help": "အကူအညီစင်တာ",
+  "settings.version": "ခရစ္စတယ် ပိုက်ဆံအိတ် v1.0.0",
+
+  // Languages
+  "language.english": "အင်္ဂလိပ်",
+  "language.burmese": "မြန်မာ",
+
+  // Wallet actions
+  "action.send": "ပို့ရန်",
+  "action.receive": "လက်ခံရန်",
+  "action.scan": "စကင်ဖတ်ရန်",
+  "action.swap": "လဲလှယ်ရန်",
+
+  // Transaction history
+  "tx.recent": "မကြာသေးမီ ငွေလွှဲမှုများ",
+  "tx.seeAll": "အားလုံးကြည့်ရန်",
+  "tx.history": "ငွေလွှဲမှု မှတ်တမ်း",
+  "tx.balanceHistory": "လက်ကျန်ငွေ မှတ်တမ်း",
+  "tx.sent": "ပို့ထားသည်",
+  "tx.received": "လက်ခံရရှိသည်",
+  "tx.pending": "စောင့်ဆိုင်းနေသည်",
+  "tx.search": "လိပ်စာ သို့မဟုတ် ပမာဏဖြင့် ရှာရန်",
+  "tx.filter": "စစ်ထုတ်ရန်",
+
+  // Receive
+  "receive.title": "Stablecoin လက်ခံရန်",
+  "receive.address": "သင့်ရဲ့ ပိုက်ဆံအိတ်လိပ်စာ",
+  "receive.copied": "လိပ်စာကူးယူပြီး",
+  "receive.clipboard": "ပိုက်ဆံအိတ်လိပ်စာကို ကလစ်ဘုတ်သို့ ကူးယူပြီး",
+  "receive.share": "ဒီလိပ်စာကို မျှဝေပြီး stablecoin တစ်ခုခုကို သင့်ပိုက်ဆံအိတ်ထဲ လက်ခံပါ။",
+  "receive.supported": "ထောက်ပံ့ထားသော Stablecoins",
+
+  // Scan
+  "scan.title": "QR ကုဒ် စကင်ဖတ်ရန်",
+  "scan.position": "QR ကုဒ်ကို ဘောင်အတွင်း ထားပါ",
+  "scan.info": "stablecoins ��ို့ရန် သို့မဟုတ် လက်ခံရန် QR ကုဒ်ကို စကင်ဖတ်ပါ",
+
+  // Transfer page
+  "transfer.title": "Stablecoin ပို့ရန်",
+  "transfer.titleGeneric": "ငွေကြေး ပို့ရန်",
+  "transfer.selectCoin": "Stablecoin ရွေးချယ်ပါ",
+  "transfer.selectCurrency": "ငွေကြေး ရွေးချယ်ပါ",
+  "transfer.recipientAddress": "လက်ခံသူ လိပ်စာ",
+  "transfer.recipientPhone": "လက်ခံသူ ဖုန်းနံပါတ်",
+  "transfer.amount": "ပမာဏ ({symbol})",
+  "transfer.balance": "လက်ကျန်: {balance} {symbol}",
+  "transfer.networkFee": "ကွန်ရက်ခ: ~$၀.၁၄",
+  "transfer.send": "ပို့ရန်",
+  "transfer.invalid": "မမှန်ကန်သော အချက်အလက်",
+  "transfer.enterBoth": "လိပ်စာနှင့် ပမာဏ နှစ်ခုစလုံး ထည့်သွင်းပါ",
+  "transfer.initiated": "ငွေလွှဲမှု စတင်ပြီ",
+  "transfer.sending": "{amount} {symbol} ကို {address} သို့ ပို့နေသည်",
+  "transfer.qrScanner": "QR စကင်နာ",
+  "transfer.qrScannerDesc": "QR ကုဒ် စကင်နာကို ဖွင့်မည်",
+
+  // Market page
+  "market.title": "Stablecoin ဈေးကွက်",
+  "market.overview": "အသေးစိတ်",
+  "market.charts": "ဇယားများ",
+  "market.news": "သတင်းများ",
+  "market.priceHistory": "စျေးနှုန်း သမိုင်း",
+  "market.stablecoins": "Stablecoins",
+  "market.marketCap": "ဈေးကွက် တန်ဖိုး",
+  "market.advancedCharts": "ဇယား အသေးစိတ်များ",
+  "market.chartsComingSoon": "အသေးစိတ် ဇယား ခွဲခြမ်းစိတ်ဖြာမှု မကြာမီလာမည်",
+  "market.marketNews": "ဈေးကွက် သတင်း",
+  "market.newsComingSoon": "Stablecoin သတင်းနှင့် အပ်ဒိတ်များ မကြာမီလာမည်",
+  "market.cbdcs": "CBDCs",
+
+  // P2P
+  "p2p.title": "P2P ရောင်းဝယ်ရေး",
+  "p2p.subtitle": "အခြားသုံးစွဲသူများနှင့် တိုက်ရိုက် ခရစ်ပတို ရောင်းဝယ်ပါ",
+  "p2p.secure": "လုံခြုံသော ရောင်းဝယ်မှု",
+  "p2p.escrow": "escrow ဝန်ဆောင်မှုဖြင့် ကာကွယ်ထားသည်",
+  "p2p.multiple_payments": "ငွေပေးချေမှု နည်းလမ်း အမျိုးမျိုး",
+  "p2p.payment_options": "ဘဏ်လွှဲပြောင်းမှု၊ မိုဘိုင်းငွေပေးချေမှုနှင့် အခြား",
+  "p2p.fast": "မြန်ဆန်သော အပြီးသတ်မှုများ",
+  "p2p.quick_trades": "မိနစ်အနည်းငယ်အတွင်း ရောင်းဝယ်မှုပြီးစီးပါသည်",
+  "p2p.buy_crypto": "ခရစ်ပတို ဝယ်ယူရန်",
+  "p2p.sell_crypto": "ခရစ်ပတို ရောင်းချရန်",
+  "p2p.buy_amount": "{{amount}} {{currency}} ဝယ်ယူရန်",
+  "p2p.sell_amount": "{{amount}} {{currency}} ရောင်းချရန်",
+  "p2p.order_with": "{{name}} နှင့် အော်ဒါမှာယူရန်",
+  "p2p.amount": "ပမာဏ",
+  "p2p.min": "အနည်းဆုံး",
+  "p2p.max": "အများဆုံး",
+  "p2p.you_will": "သင်",
+  "p2p.pay": "ပေးချေရမည်",
+  "p2p.receive": "လက်ခံရရှိမည်",
+  "p2p.price": "စျေးနှုန်း",
+  "p2p.confirm_order": "အော်ဒါအတည်ပြုရန်",
+  "p2p.for_total": "အတွက်",
+  "p2p.payment_method": "ငွေပေးချေမှုနည်းလမ်း",
+  "p2p.total": "စုစုပေါင်း",
+  "p2p.place_order": "အော်ဒါတင်ရန်",
+  "p2p.order_placed": "အော်ဒါအောင်မြင်စွာ တင်ပြီးပါပြီ",
+  "p2p.order_details": "{{price}} {{fiat}} ဖြင့် {{amount}} {{currency}} {{action}}",
+  "p2p.trades": "အရောင်းအဝယ် {{count}} ခု | {{rate}}%",
+  
+  // Added missing keys
+  "p2p.advertiser": "ကြော်ငြာသူ",
+  "p2p.limit": "ကန့်သတ်ချက်",
+  "p2p.available": "ရရှိနိုင်",
+  "p2p.payment": "ငွေပေးချေမှုနည်းလမ်း",
+  "p2p.action": "လုပ်ဆောင်ချက်",
+  "p2p.price_tooltip": "ရွေးချယ်ထားသည့် fiat ငွေကြေးဖြင့် ခရစ်ပတို တစ်ယူနစ်၏စျေးနှုန်း",
+  "p2p.no_offers": "ရွေးချယ်ထားသောစစ်ထုတ်မှုများဖြင့် ကမ်းလှမ်းချက်များမရှိပါ။",
+  "p2p.try_different": "စစ်ထုတ်မှု အခြေအနေများကို ပြောင်းလဲကြည့်ပါ သို့မဟုတ် နောက်မှ ပြန်လာကြည့်ပါ။",
+  "p2p.buy": "ဝယ်ယူရန်",
+  "p2p.sell": "ရောင်းချရန်",
+  "p2p.buy_instantly": "ချက်ချင်းဝယ်ယူရန်",
+  "p2p.sell_instantly": "ချက်ချင်းရောင်းချရန်",
+  "p2p.payment_methods": "ငွေပေးချေမှုနည်းလမ်းများ",
+  "p2p.delete_confirmation": "ကမ်းလှမ်းချက်ကို ဖျက်ရန်",
+  "p2p.delete_warning": "ဒီကမ်းလှမ်းချက်ကို ဖျက်ချင်တာ သေချာပါသလား။ ဒီလုပ်ဆောင်ချက်ကို ပြန်ပြင်၍မရပါ။",
+  "p2p.cancel": "ပယ်ဖျက်ရန်",
+  "p2p.delete": "ဖျက်ရန်",
+  "p2p.marketplace": "ဈေးကွက်",
+  "p2p.my_listings": "ကျွန်ုပ်၏စာရင်းများ",
+  "p2p.trade_history": "ရောင်းဝယ်မှုမှတ်တမ်း",
+  "p2p.notifications": "အသိပေးချက်များ",
+  "p2p.no_listings": "စာရင်းများ မရှိသေးပါ",
+  "p2p.create_listing_hint": "ရောင်းဝယ်မှု စတင်ရန် ကမ်းလှမ်းချက်တစ်ခု ဖန်တီးပါ",
+  "p2p.buying": "ဝယ်နေသည်",
+  "p2p.selling": "ရောင်းနေသည်",
+  "p2p.status_pending": "ဆောင်ရွက်ဆဲ",
+  "p2p.status_paid": "ငွေပေးချေပြီး",
+  "p2p.status_completed": "ပြီးဆုံးပြီး",
+  "p2p.status_disputed": "အငြင်းပွားမှု",
+  "p2p.status_cancelled": "ပယ်ဖျက်ပြီး",
+  "p2p.mark_paid": "ငွေပေးချေပြီးပြီ",
+  "p2p.waiting_release": "ရောင်းသူမှ ခရစ်ပတိုကို လွှဲပြောင်းပေးရန် စောင့်နေသည်",
+  "p2p.leave_feedback": "အကြံပြုချက် ပေးပါ",
+  "p2p.feedback_left": "အကြံပြုချက် ပေးပို့ပြီးပြီ",
+  "p2p.waiting_payment": "ဝယ်ယူသူမှ ငွေပေးချေရန် စောင့်နေသည်",
+  "p2p.release_crypto": "ခရစ်ပတိုကို လွှဲပြောင်းပေးပါ",
+  "p2p.open_dispute": "အငြင်းပွားမှု ဖွင့်ပါ",
+  "p2p.cancel_trade": "ရောင်းဝယ်မှု ပယ်ဖျက်ပါ",
+  "p2p.chat": "စကားပြော",
+  "p2p.start_chatting": "သင့် ရောင်းဝယ်ဖက်နှင့် စကားပြောရန် စတင်ပါ",
+  "p2p.type_message": "စာတစ်စုံတစ်ခု ရိုက်ထည့်ပါ...",
+  "p2p.chat_read_only": "ဤရောင်းဝယ်မှုမှာ ပြီးဆုံး သို့မဟုတ် ပယ်ဖျက်ပြီးဖြစ်သဖြင့် ဤစကားပြောခန်းကို ဖတ်ရှုရန်သာ ရပါတော့မည်။",
+  "p2p.submit_dispute": "အငြင်းပွားမှု တင်သွင်းပါ",
+  "p2p.dispute_description": "သင့်ပြဿနာကို ရှင်းပြပါ။ ကျွန်ုပ်တို့အဖွဲ့က သင့်အမှုကို စစ်ဆေးပါမည်။",
+  "p2p.dispute_reason": "သင့်ပြဿနာကို အသေးစိတ် ဖော်ပြပါ...",
+  "p2p.feedback_description": "ဤရောင်းဝယ်သူနှင့် အတွေ့အကြုံကို အဆင့်သတ်မှတ်ပါ",
+  "p2p.feedback_comment": "ထပ်မံအကြံပြုလိုသည်များ (လိုအပ်လျှင်)",
+  "p2p.submit_feedback": "အကြံပြုချက် တင်သွင်းပါ",
+  "p2p.trade_initiated": "ရောင်းဝယ်မှု စတင်ပြီ: {action} {amount} {currency}",
+  
+  // Common
+  "common.back": "နောက်သို့",
+  "common.next": "ရှေ့သို့",
+  "common.cancel": "ပယ်ဖျက်ရန်",
+
+  // NotFound
+  "notfound.title": "၄၀၄",
+  "notfound.message": "စာမျက်နှာ မတွေ့ရှိပါ",
+  "notfound.description": "သင်ရှာဖွေနေသော စာမျက်နှာ မရှိတော့ပါ သို့မဟုတ် ရွှေ့ပြောင်းသွားပါပြီ။",
+  "notfound.back": "ပင်မစာမျက်နှာသို့",
+};
+
+export default burmeseTranslations;

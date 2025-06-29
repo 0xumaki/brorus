@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" fill="none">
+  <!-- Background circle with gradient -->
+  <circle cx="64" cy="64" r="64" fill="url(#bgGradient)"/>
+  
+  <!-- Outer glow -->
+  <circle cx="64" cy="64" r="60" stroke="url(#glowGradient)" stroke-width="2" opacity="0.3"/>
+  
+  <!-- Wallet body -->
+  <rect x="24" y="40" width="80" height="48" rx="8" fill="white" opacity="0.95"/>
+  
+  <!-- Wallet flap -->
+  <path d="M24 48 L104 48 L104 40 L24 40 Z" fill="white" opacity="0.8"/>
+  
+  <!-- Wallet opening -->
+  <rect x="32" y="48" width="64" height="32" rx="4" fill="url(#walletGradient)"/>
+  
+  <!-- Crypto symbols (blockchain representation) -->
+  <circle cx="48" cy="64" r="3" fill="white"/>
+  <circle cx="64" cy="64" r="3" fill="white"/>
+  <circle cx="80" cy="64" r="3" fill="white"/>
+  
+  <!-- Connection lines -->
+  <line x1="51" y1="64" x2="61" y2="64" stroke="white" stroke-width="1.5"/>
+  <line x1="67" y1="64" x2="77" y2="64" stroke="white" stroke-width="1.5"/>
+  
+  <!-- Additional crypto elements -->
+  <circle cx="56" cy="56" r="2" fill="white" opacity="0.7"/>
+  <circle cx="72" cy="72" r="2" fill="white" opacity="0.7"/>
+  
+  <!-- Shine effects -->
+  <circle cx="48" cy="32" r="8" fill="white" opacity="0.2"/>
+  <circle cx="96" cy="96" r="6" fill="white" opacity="0.15"/>
+  
+  <!-- Subtle pattern -->
+  <rect x="36" y="52" width="56" height="24" rx="2" fill="white" opacity="0.1"/>
+  
+  <!-- Gradients -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#764ba2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f093fb;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="walletGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f093fb;stop-opacity:0.9" />
+      <stop offset="50%" style="stop-color:#f5576c;stop-opacity:0.9" />
+      <stop offset="100%" style="stop-color:#4facfe;stop-opacity:0.9" />
+    </linearGradient>
+    <linearGradient id="glowGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:0.5" />
+      <stop offset="100%" style="stop-color:#f093fb;stop-opacity:0.5" />
+    </linearGradient>
+  </defs>
+</svg> 
